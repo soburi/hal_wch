@@ -10,6 +10,7 @@
 *********************************************************************************/
 #include "ch32v30x.h" 
 
+#if 0
 /* 
 * Uncomment the line corresponding to the desired System clock (SYSCLK) frequency (after 
 * reset the HSI is used as SYSCLK source).
@@ -45,6 +46,26 @@
 
 #else /* HSI Selected as System Clock source */
   uint32_t SystemCoreClock         = HSI_VALUE;                /* System Clock Frequency (Core Clock) */
+#endif
+#else
+#if (CONFIG_SYS_CLOCK_HW_CYCLES_PER_SEC ==  24000000)
+#define SYSCLK_FREQ_24MHz  24000000
+#elif (CONFIG_SYS_CLOCK_HW_CYCLES_PER_SEC ==  48000000)
+#define SYSCLK_FREQ_48MHz  48000000
+#elif (CONFIG_SYS_CLOCK_HW_CYCLES_PER_SEC ==  56000000)
+#define SYSCLK_FREQ_56MHz  56000000
+#elif (CONFIG_SYS_CLOCK_HW_CYCLES_PER_SEC ==  72000000)
+#define SYSCLK_FREQ_72MHz  72000000
+#elif (CONFIG_SYS_CLOCK_HW_CYCLES_PER_SEC ==  96000000)
+#define SYSCLK_FREQ_96MHz  96000000
+#elif (CONFIG_SYS_CLOCK_HW_CYCLES_PER_SEC == 120000000)
+#define SYSCLK_FREQ_120MHz  120000000
+#elif (CONFIG_SYS_CLOCK_HW_CYCLES_PER_SEC == 144000000)
+#define SYSCLK_FREQ_144MHz  144000000
+#else
+#error Unsupported SystemClock frequency
+#endif
+uint32_t SystemCoreClock = CONFIG_SYS_CLOCK_HW_CYCLES_PER_SEC;
 #endif
 
 __I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
